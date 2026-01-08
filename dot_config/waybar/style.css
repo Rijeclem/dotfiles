@@ -1,0 +1,317 @@
+/*****----- Global Properties -----*****/
+@import "colors2.css";
+@import "tokyocolors.css";
+
+* {
+    font-family: "Jura";
+    font-size: 14px;
+    min-width: 0px;
+    min-height: 0px;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+#custom-appmenu {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.module,
+#gamemode,
+#privacy-item {
+    background-color: alpha(@surface_container_low, 0.5);
+    color: @primary;
+    padding: 0px 5px 0px 5px;
+    margin: 1px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px 0px alpha(@shadow, 0.25);
+    border: 0px solid transparent;
+    background-clip: padding-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.module:hover:not(#workspaces):not(#pulseaudio-slider),
+#gamemode:hover,
+#privacy:hover {
+    background-color: @tertiary;
+    color: @on_tertiary;
+    border-radius: 5px;
+}
+
+
+/*****----- waybar window -----*****/
+
+window#waybar {
+    background: transparent;
+    background-color: transparent;
+    color: transparent;
+    transition-property: background-color;
+    transition-duration: 0.1s;
+    margin: 0;
+    border-radius: 0px;
+}
+
+window#waybar.hidden {
+    opacity: 0;
+}
+
+/*****----- tooltip -----*****/
+
+tooltip {
+    background: alpha(@secondary_container, 0.9);
+    border: 1px solid @outline;
+    border-radius: 5px;
+    color: @on_secondary_container;
+    transition: all 0.2s ease-in-out;
+}
+
+tooltip label {
+    color: @on_secondary_container;
+}
+
+/*****----- powermenu group -----*****/
+
+#custom-lock {
+    padding: 1px 1px 1px 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 1px 0px 1px 1px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#custom-quit {
+    padding: 1px 1px 1px 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 1px 0px 1px 0px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+#custom-suspend {
+    padding: 1px 1px 1px 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 1px 1px 1px 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+/*****----- workspaces -----*****/
+
+#workspaces button {
+    padding: 0px 8px 0px 5px;
+    margin: 1px 1px 1px 1px;
+    background-color: alpha(@primary, 0.2);
+    color: @on_primary_container;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.empty {
+    background-color: @tertiary;
+    color: @on_tertiary;
+}
+
+#workspaces button.special,
+#workspaces button.persistent,
+#workspaces button.visible {
+    background-color: @tertiary_container;
+    color: @on_tertiary_container;
+}
+
+#workspaces button.urgent {
+    background-color: alpha(@kırmızı, 0.75);
+    border-radius: 5px;
+    color: @on_secondary;
+}
+
+#workspaces button.active {
+    background: linear-gradient(0deg,
+            #8fce8a 0%,
+            /* darker */
+            #a6e3a1 50%,
+            /* base */
+            #c1f0bd 100%
+            /* lighter */
+        );
+    /* cool cyan-green */
+    background-color: @primary;
+    color: @on_primary;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces .taskbar-window {
+    background-color: transparent;
+    color: transparent;
+    padding: 0px 1px 0px 1px;
+}
+
+#workspaces button:hover {
+    background-color: @tertiary;
+    color: @on_tertiary;
+    border-radius: 5px;
+}
+
+/*****----- window -----*****/
+window#waybar.empty #window {
+    background-color: transparent;
+    color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
+
+window#waybar.fullscreen #window {
+    background-color: @limon;
+    color: @on_tertiary;
+}
+
+window#waybar.floating #window {
+    background: @kırmızı;
+    color: @on_tertiary;
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+
+window#waybar.swallowing #window {
+    background-color: @limon;
+    color: @on_error_container;
+}
+
+/*****----- tray -----*****/
+#tray menu {
+    background: alpha(@secondary_container, 0.9);
+    border: 1px solid @outline;
+    color: @on_secondary_container;
+    transition: all 0.2s ease-in-out;
+}
+
+#tray>.passive {
+    color: @secondary;
+    /* It controls how icons are visually rendered */
+    -gtk-icon-effect: dim;
+    /* GTK CSS property */
+}
+
+#tray>.needs-attention {
+    color: @tertiary;
+}
+
+#tray>.active {
+    color: @primary;
+    -gtk-icon-effect: highlight;
+}
+
+
+/*****----- hyprland submap -----*****/
+#submap {
+    background-color: alpha(@secondary, 0.7);
+    color: @on_secondary;
+}
+
+
+/*****----- disk, cpu, memory -----*****/
+
+#disk {
+    color: @pembe;
+    padding: 0px 11px 0px 5px;
+}
+
+#cpu,
+#memory {
+    color: @bej;
+}
+
+#cpu {
+    border-radius: 5px 0px 0px 5px;
+    margin: 1px 0px 1px 1px;
+}
+
+#memory {
+    border-radius: 0px 5px 5px 0px;
+    margin: 1px 1px 1px 0px;
+}
+
+#disk.chill,
+#cpu.chill,
+#memory.chill {
+    color: @limon;
+}
+
+#disk.warning,
+#cpu.warning,
+#memory.warning {
+    color: @yellow_value;
+}
+
+#disk.critical,
+#cpu.critical,
+#memory.critical {
+    color: @red_value;
+}
+
+/*****----- pulseaudio-slider -----*****/
+
+#pulseaudio-slider:hover {
+    background-color: alpha(@primary_container, 0.5);
+    color: @yesil;
+}
+
+#pulseaudio-slider trough {
+    min-height: 5px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: @surface_container;
+}
+
+#pulseaudio-slider highlight {
+    min-width: 2px;
+    border-radius: 5px;
+    background-color: @yesil;
+}
+
+#pulseaudio-slider slider {
+    border: none;
+    background-color: @yesil;
+    box-shadow: none;
+    min-height: 8px;
+    /* adjust to your liking */
+    min-width: 8px;
+    margin: -3px;
+    /* centers the knob if it shrinks */
+}
+
+#pulseaudio-slider slider:hover {
+    background-color: @tertiary;
+}
+
+#pulseaudio-slider highlight:hover {
+    background-color: @tertiary;
+}
+
+#pulseaudio {
+    color: @yesil;
+    padding: 0px 8px 0px 5px;
+}
+
+/*****----- network, idle, weather, date,clock -----*****/
+
+#idle_inhibitor.activated {
+    color: @yesil;
+}
+
+#network {
+    color: @turkuaz;
+}
+
+#custom-weather {
+    color: @gokyuzumavi;
+}
+
+#clock {
+    color: @lacivert;
+    font-size: 15px;
+}
+
+#clock.date {
+    color: @mor;
+}

@@ -1,0 +1,8 @@
+{
+  "hyprland/submap": {
+    "format": " {}",
+    "max-length": 12,
+    "on-click-right": "hyprctl dispatch submap reset",
+    "tooltip": true
+  }
+}

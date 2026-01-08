@@ -1,0 +1,56 @@
+{
+    // See https://github.com/Alexays/Waybar/wiki/Configuration
+    "output": "DP-1",
+    "layer": "top",
+    "position": "bottom",
+    "height": 12,
+    "mode": "dock",
+    "exclusive": true, // Option to request an exclusive zone from the compositor.
+    "passtrough": false, //  Pass any pointer events to the window under the bar.
+    "reload_style_on_change": true,
+    "margin-top": 0,
+    "margin-left": 1,
+    "margin-bottom": 0,
+    "margin-right": 1,
+    "spacing": 0,
+    "include": [
+        "~/.config/waybar/modules/power-group.jsonc",
+        "~/.config/waybar/modules/custom-appmenu.jsonc",
+        "~/.config/waybar/modules/hyprland-workspaces.jsonc",
+        "~/.config/waybar/modules/mpris.jsonc",
+        "~/.config/waybar/modules/hyprland-window.jsonc",
+        "~/.config/waybar/modules/hyprland-submap.jsonc",
+        "~/.config/waybar/modules/tray.jsonc",
+        "~/.config/waybar/modules/disk.jsonc",
+        "~/.config/waybar/modules/gamemode.jsonc",
+        "~/.config/waybar/modules/cpu.jsonc",
+        "~/.config/waybar/modules/memory.jsonc",
+        "~/.config/waybar/modules/pulseaudio-group.jsonc",
+        "~/.config/waybar/modules/network.jsonc",
+        "~/.config/waybar/modules/weather.jsonc",
+        "~/.config/waybar/modules/clockdate.jsonc",
+        "~/.config/waybar/modules/clock.jsonc"
+    ],
+    "modules-left": [
+        "group/power-group",
+        "custom/appmenu",
+        "hyprland/workspaces",
+        "mpris"
+    ],
+    "modules-center": [
+        "hyprland/window",
+        "hyprland/submap"
+    ],
+    "modules-right": [
+        "tray",
+        "disk",
+        "cpu",
+        "memory",
+        "group/pulseaudio-group",
+        "network",
+        "gamemode",
+        "custom/weather",
+        "clock#date",
+        "clock"
+    ]
+}

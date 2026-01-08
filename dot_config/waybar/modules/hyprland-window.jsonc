@@ -1,0 +1,10 @@
+{
+    "hyprland/window": {
+        "format": "{title}",
+        "icon": true,
+        "icon-size": 18,
+        "max-length": 15,
+        "separate-outputs": false
+    }
+    // Note that icon theme inherits from org.gnome.desktop.interface icon-theme.
+}

@@ -1,0 +1,15 @@
+{
+    "cpu": {
+        "format": "%{usage} ",
+        "states": {
+            "chill": 20,
+            "warning": 50,
+            "critical": 80
+        },
+        "interval": 5,
+        "tooltip": true,
+        "on-click-right": "kitty -e btop",
+        "max-length": 5,
+        "min-length": 5
+    }
+}

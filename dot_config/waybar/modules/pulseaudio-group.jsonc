@@ -1,0 +1,47 @@
+{
+    "group/pulseaudio-group": {
+        "orientation": "inherit",
+        "modules": [
+            "pulseaudio",
+            "pulseaudio/slider"
+        ],
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "pulseaudio-drawer",
+            "transition-left-to-right": false,
+            "click-to-reveal": false
+        }
+    },
+    "pulseaudio": {
+        "format": "%{volume} {icon}",
+        "format-muted": "<span color='#f53c3c'>{icon}</span>",
+        "format-bluetooth": "󰂯 %{volume} {icon}",
+        "format-bluetooth-muted": "<span color='#f53c3c'>󰂯 {icon}</span>",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ],
+            "default-muted": "",
+            "headphone": "",
+            "headphone-muted": "󰟎",
+            "hands-free": "",
+            "hands-free-muted": "󰟎",
+            "headset": "",
+            "headset-muted": "󰋐"
+        },
+        "tooltip-format": "{desc}, volume: {volume}%\nMicrophone: {format_source}",
+        "on-click-right": "~/bin/audio_changer.py",
+        "on-click-middle": "pavucontrol",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "reverse-mouse-scrolling": true, // Logical behavior on mouse
+        "scroll-step": 5,
+        "smooth-scrolling-threshold": 3.0
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 150,
+        "orientation": "horizontal"
+    }
+}

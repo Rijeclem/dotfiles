@@ -1,0 +1,10 @@
+{
+    "custom/appmenu": {
+        // START APPS LABEL
+        "format": "⚛",
+        // END APPS LABEL
+        "on-click": "wofi --show drun --style ~/.config/wofi/styles.css ",
+        "on-click-right": "ls ~/bin | wofi --dmenu --prompt 'Scripts' | xargs -r sh -c",
+        "tooltip-format": "Left: Applications\nRight: Rad's Programs"
+    }
+}

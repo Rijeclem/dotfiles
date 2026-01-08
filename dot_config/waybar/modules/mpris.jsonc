@@ -1,0 +1,23 @@
+{
+    "mpris": {
+        "interval": 2,
+        "format": "{player_icon} {title} - {artist}",
+        "format-paused": "{status_icon} <i>{title} - {artist}</i>",
+        "title-len": 40,
+        "artist-len": 25,
+        "dynamic-order": [
+            "title",
+            "artist"
+        ],
+        "player-icons": {
+            "default": "▶",
+            "firefox": "▶",
+            "spotify": "🎵",
+            "cmus": "🎵"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        // "ignored-players": ["cmus"]
+    }
+}

@@ -1,0 +1,8 @@
+# RAD - Normal (extended) layout
+monitor=DP-2,1920x1080@60,0x0,1
+monitor=DP-1,1920x1080@144,0x1080,1
+
+# RAD - Mirrored layout
+monitor=DP-1,1920x1080@144,0x0,1
+monitor=DP-2,1920x1080@60,auto,1,mirror,DP-1
+

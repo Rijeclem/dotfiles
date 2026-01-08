@@ -1,0 +1,10 @@
+{
+    "disk": {
+        "interval": 60,
+        "format": "%{percentage_used} ({free}) ",
+        "path": "/",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    }
+}
