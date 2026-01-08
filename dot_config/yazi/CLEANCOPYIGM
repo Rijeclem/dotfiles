@@ -1,0 +1,5 @@
+
+[[mgr.prepend_keymap]]
+on = "Y"
+run = ["shell --orphan 'wl-copy --type image/png < \"$@\"'", "yank"]
+desc = "Yank img"

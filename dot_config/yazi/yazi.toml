@@ -1,0 +1,113 @@
+[mgr]
+linemode = "none"
+
+[opener]
+edit = [
+    { run = 'nvim "$@"', block = true, for = "unix" }
+]
+editnew = [
+    { run = 'kitty -e nvim "$@"', block = false, for = "unix" }
+]
+editpdf = [
+    { run = 'okular "$@"', block = true, for = "unix" }
+]
+image = [
+    { run = 'imv "$@"', block = false, for = "unix" }
+]
+play = [
+    { run = 'vlc "$@"', desc = "VLC", orphan = true }
+]
+extract = [
+	{ run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" }
+]
+aff = [
+    { run = 'env WINEPREFIX=/home/rad/.AffinityLinux DXVK_ASYNC=0 DXVK_CONFIG="d3d9.deferSurfaceCreation = True; d3d9.shaderModel = 1" /home/rad/.AffinityLinux/ElementalWarriorWine/bin/wine "/home/rad/.AffinityLinux/drive_c/Program Files/Affinity/Affinity/Affinity.exe" "$@"', block = true, desc = "Affinity Photo", for = "unix" }
+]
+binopen = [
+    { run = '"$0"', block = false, orphan = true},
+]
+
+[open]
+prepend_rules = [
+    { mime = "application/x-executable", use = "binopen" },
+    { mime = "application/x-pie-executable", use = "binopen" },
+    { mime = "application/pie-executable", use = "binopen" },
+    { mime = "application/x-sharedlib", use = "binopen" }, # some ELF libs behave like executables
+    { mime = "application/x-sh", use = ["edit","binopen"] },
+    { mime = "application/x-shellscript", use = ["edit","binopen"] },
+    { mime = "text/x-shellscript", use = ["edit","binopen"] },
+    { mime = "text/shellscript", use = ["edit","binopen"] },
+    { mime = "text/x-sh", use = ["edit","binopen"] },
+]
+RULES = [
+  
+    # GENERIC TEXT
+    { MIME = "TEXT/*", use =["edit","editnew"] },
+
+    # Generic Image
+    { mime = "image/*", use = "image" },
+
+    # COMMON CONFIG FORMATS
+    { NAME = "*.CONF", use =["edit","editnew"] },
+    { NAME = "*.CFG", use =["edit","editnew"] },
+    { NAME = "*.INI", use =["edit","editnew"] },
+    { NAME = "*.TOML", use =["edit","editnew"] },
+    { NAME = "*.YAML", use =["edit","editnew"] },
+    { NAME = "*.YML", use =["edit","editnew"] },
+
+    # JSON & DATA
+    { NAME = "*.JSON", use =["edit","editnew"] },
+    { NAME = "*.CSV", use =["edit","editnew"] },
+    { NAME = "*.TSV", use =["edit","editnew"] },
+    { NAME = "*.XML", use =["edit","editnew"] },
+    { NAME = "*.MD", use =["edit","editnew"] },
+    { NAME = "*.TXT", use =["edit","editnew"] },
+
+    # SOURCE CODE / SCRIPTS
+    { NAME = "*.PY", use =["edit","editnew"] },
+    { NAME = "*.JS", use =["edit","editnew"] },
+    { NAME = "*.TS", use =["edit","editnew"] },
+    { NAME = "*.C", use =["edit","editnew"] },
+    { NAME = "*.CPP", use =["edit","editnew"] },
+    { NAME = "*.H", use =["edit","editnew"] },
+    { NAME = "*.LUA", use =["edit","editnew"] },
+    { NAME = "*.SH", use =["edit","editnew"] },
+    { NAME = "*.ZSH", use =["edit","editnew"] },
+    { NAME = "*.BASH", use =["edit","editnew"] },
+    { NAME = "*.RS", use =["edit","editnew"] },
+    { NAME = "*.GO", use =["edit","editnew"] },
+    { NAME = "*.JAVA", use =["edit","editnew"] },
+    { NAME = "*.PHP", use =["edit","editnew"] },
+    { NAME = "*.HTML", use =["edit","editnew"] },
+    { NAME = "*.CSS", use =["edit","editnew"] },
+    { NAME = "*.SCSS", use =["edit","editnew"] },
+    { NAME = "*.JSON5", use =["edit","editnew"] },
+    { NAME = "*.ENV", use =["edit","editnew"] },
+
+    # PDF
+    { NAME = "*.pdf", use = "editpdf" },
+
+    # VIDEO FILES → VLC
+    { mime = "video/*", use = [ "play"] },
+    { mime = "audio/*", use = [ "play"] },
+    
+    # Affinity
+    { NAME = "*.psd", use = "aff" },
+    { NAME = "*.af", use = "aff" },
+]
+
+[plugin]
+prepend_previewers = [
+	# Archive previewer
+	{ mime = "application/*zip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+	{ mime = "application/vnd.rar",         run = "ouch" },
+	{ mime = "application/x-xz",            run = "ouch" },
+	{ mime = "application/xz",              run = "ouch" },
+	{ mime = "application/x-zstd",          run = "ouch" },
+	{ mime = "application/zstd",            run = "ouch" },
+	{ mime = "application/java-archive",    run = "ouch" },
+]

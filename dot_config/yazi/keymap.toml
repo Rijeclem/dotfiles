@@ -1,0 +1,173 @@
+#Plugins and Essentials
+
+[[mgr.prepend_keymap]]
+on = [ "e" ]
+run  = "plugin what-size"
+desc = "Calc size of selection or cwd" 
+
+[[manager.prepend_keymap]]
+on   = "<Enter>"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+on  = "y"
+run = [ "yank", 'plugin clipboard -- --action=copy' ]
+
+[[mgr.prepend_keymap]]
+on   = "P"
+run  = "paste --force"
+desc = "paste by force"
+
+[[mgr.prepend_keymap]]
+on   = "<C-p>"
+run  = "paste --force"
+desc = "paste by force"
+
+[[mgr.prepend_keymap]]
+on   = "p"
+run  = "plugin smart-paste"
+desc = "Paste into the hovered directory or CWD"
+
+[[mgr.prepend_keymap]]
+on = "<"
+run = "shell --confirm 'nohup kitty . >/dev/null 2>&1 &'"
+desc = "Open current directory in Kitty"
+
+[[mgr.prepend_keymap]]
+on   = "f"
+run  = "plugin jump-to-char"
+desc = "Jump to char"
+
+[[mgr.prepend_keymap]]
+on   = "F"
+run  = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
+
+[[mgr.prepend_keymap]]
+on   = "<A-f>"
+run  = "plugin toggle-pane max-current"
+desc = "Show or hide the preview pane"
+
+[[mgr.prepend_keymap]]
+on = ["c","i"]
+run = ["shell --orphan 'cat \"$@\" | wl-copy --type image/png'", "yank"]
+desc = "Yank img"
+
+[[mgr.prepend_keymap]]
+on   = "e"
+run  = "show"
+desc = "Task Manager"
+
+[[mgr.prepend_keymap]]
+on   = "+"
+run  = "plugin zoom 1"
+desc = "Zoom in hovered file"
+
+[[mgr.prepend_keymap]]
+on   = "-"
+run  = "plugin zoom -1"
+desc = "Zoom out hovered file"
+
+[[mgr.prepend_keymap]]
+on  = "M"
+run = "plugin mount"
+
+[[mgr.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch"
+desc = "Compress with ouch"
+
+[[mgr.prepend_keymap]]
+on = ["g","t"]
+run = "plugin recycle-bin"
+desc = "trash-client"
+
+# Rad Hotkeys
+
+[[mgr.prepend_keymap]]
+on   = "s"
+run  = 'search --via=fd --args="-H"'
+desc = "Switch to the flat view with a max depth of 3"
+
+[[mgr.prepend_keymap]]
+on = "u"
+run = "arrow -50%"
+
+[[mgr.prepend_keymap]]
+on = "ı"
+run = "arrow 50%"
+
+[[mgr.prepend_keymap]]
+on = "<C-q>"
+run = "quit"
+
+[[mgr.prepend_keymap]]
+on = "q"
+run = "close"
+
+[[mgr.prepend_keymap]]
+on = "<C-t>"
+run = "shell --confirm 'nohup kitty yazi . >/dev/null 2>&1 &'"
+
+[[mgr.prepend_keymap]]
+on = "I"
+run = "shell --confirm 'nohup gthumb . >/dev/null 2>&1 &'"
+
+# Rad Hotkeys - Sort
+
+
+[[mgr.prepend_keymap]]
+on = ["m","z"]
+run = "Linemode size_and_mtime"
+desc = "Linemode: test"
+
+[[mgr.prepend_keymap]]
+on = ["m","c"]
+run = "linemode btime"
+desc = "Linemode: ctime"
+
+[[mgr.prepend_keymap]]
+on = ["b","n"]
+run = "sort none"
+desc = "sort by None"
+
+[[mgr.prepend_keymap]]
+on = ["b","a"]
+run = "sort alphabetical"
+desc = "sort by Alphabetically"
+
+[[mgr.prepend_keymap]]
+on = ["b","s"]
+run = "sort size"
+desc = "sort by Size"
+
+[[mgr.prepend_keymap]]
+on = ["b","e"]
+run = "sort extension"
+desc = "sort by Extensions"
+
+[[mgr.prepend_keymap]]
+on = ["b","m"]
+run = "sort mtime"
+desc = "sort by Modified"
+
+[[mgr.prepend_keymap]]
+on = ["b","c"]
+run = "sort btime"
+desc = "sort by Created"
+
+[[mgr.prepend_keymap]]
+on = ["b","ü"]
+run = "sort random"
+desc = "sort by Random"
+
+[[mgr.prepend_keymap]]
+on = ["b","r"]
+run = "sort --reverse=yes"
+desc = "sort Reverse"
+
+[[mgr.prepend_keymap]]
+on = ["b","b"]
+run = "sort --reverse=no"
+desc = "sort normal"
