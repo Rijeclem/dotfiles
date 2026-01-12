@@ -24,11 +24,15 @@ $menu = wofi --show drun --style ~/.config/wofi/styles.css
 ### AUTOSTART ###
 #################
 
-exec-once = waybar & hyprpaper 
+exec-once = waybar
 exec-once = xremap ~/.config/xremap/config.yml
 exec-once = dunst
-exec-once = hypridle
+{{ if eq .chezmoi.hostname "locke" }}
+exec-once = nm-applet
+exec-once = hyprpaper
+{{ else }}
 exec-once = ~/bin/livenaturewall.sh
+{{ end }}
 
 #############################
 ### ENVIRONMENT VARIABLES ###
