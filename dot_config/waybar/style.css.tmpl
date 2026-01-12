@@ -4,7 +4,11 @@
 
 * {
     font-family: "Jura";
+    {{ if eq .chezmoi.hostname "locke" }}
+    font-size: 11px;
+    {{ else }}
     font-size: 14px;
+    {{ end }}
     min-width: 0px;
     min-height: 0px;
     padding: 0;
@@ -13,7 +17,6 @@
 }
 
 #custom-appmenu {
-    font-size: 18px;
     font-weight: bold;
 }
 
@@ -72,13 +75,6 @@ tooltip label {
 
 /*****----- powermenu group -----*****/
 
-#custom-lock {
-    padding: 1px 1px 1px 1px;
-    padding-right: 5px;
-    padding-left: 5px;
-    margin: 1px 0px 1px 1px;
-    border-radius: 5px 0px 0px 5px;
-}
 
 #custom-quit {
     padding: 1px 1px 1px 1px;
@@ -88,14 +84,47 @@ tooltip label {
     border-radius: 0px 0px 0px 0px;
 }
 
-#custom-suspend {
-    padding: 1px 1px 1px 1px;
-    padding-right: 5px;
-    padding-left: 5px;
-    margin: 1px 1px 1px 0px;
-    border-radius: 0px 5px 5px 0px;
+#backlight-slider:hover {
+    background-color: alpha(@primary_container, 0.5);
+    color: @turkuaz;
 }
 
+#backlight-slider trough {
+    min-height: 5px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: @surface_container;
+}
+
+#backlight-slider highlight {
+    min-width: 2px;
+    border-radius: 5px;
+    background-color: @turkuaz;
+}
+
+#backlight-slider slider {
+    border: none;
+    background-color: @turkuaz;
+    box-shadow: none;
+    min-height: 8px;
+    /* adjust to your liking */
+    min-width: 8px;
+    margin: -3px;
+    /* centers the knob if it shrinks */
+}
+
+#backlight-slider slider:hover {
+    background-color: @tertiary;
+}
+
+#backlight-slider highlight:hover {
+    background-color: @tertiary;
+}
+
+#backlight {
+    color: @turkuaz;
+    padding: 0px 8px 0px 5px;
+}
 /*****----- workspaces -----*****/
 
 #workspaces button {
@@ -309,7 +338,11 @@ window#waybar.swallowing #window {
 
 #clock {
     color: @lacivert;
+    {{ if eq .chezmoi.hostname "locke" }}
+    font-size: 12px;
+    {{ else }}
     font-size: 15px;
+    {{ end }}
 }
 
 #clock.date {

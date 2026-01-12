@@ -8,10 +8,16 @@
       "click-to-reveal": false
     },
     "modules": [
-      "custom/power", // First element is the "group leader" and won't ever be hidden
-      "custom/lock",
-      "custom/quit",
-      "custom/suspend"
+        {{ if eq .chezmoi.hostname "locke" }}
+            "custom/power", // First element is the "group leader" and won't ever be hidden
+            "backlight/slider",
+            "backlight"
+        {{ else }}
+            "custom/power", // First element is the "group leader" and won't ever be hidden
+            "custom/lock",
+            "custom/quit",
+            "custom/suspend"
+        {{ end }}
     ]
   },
   "custom/power": {
@@ -20,6 +26,7 @@
     "tooltip-format": "Open power menu",
     "on-click": " wlogout -C /home/rad/.config/wlogout/styles.css "
   },
+
   "custom/lock": {
     "format": "󰌾",
     "tooltip-format": "Lock the system",
@@ -34,5 +41,18 @@
     "format": "󰤄",
     "tooltip-format": "Suspend the system",
     "on-click": "~/.config/rofi/powermenu/run.sh suspend"
-  }
+  },
+
+    "backlight":{
+        "format": "%{percent} {icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "reverse-mouse-scrolling": true, // Logical behavior on mouse
+        "scroll-step": 5,
+        "smooth-scrolling-threshold": 3.0
+    },
+"backlight/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+}
 }
