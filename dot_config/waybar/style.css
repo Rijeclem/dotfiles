@@ -315,3 +315,18 @@ window#waybar.swallowing #window {
 #clock.date {
     color: @mor;
 }
+
+/*****----- battery -----*****/
+#battery {
+    color: @bej;
+}
+
+#battery.critical:not(.charging) {
+  color: @red_value;
+}
+#battery.warning:not(.charging) {
+  color: @yellow;
+}
+#battery.charging {
+  color: @green;
+}

@@ -2,7 +2,7 @@
     "network": {
         "format": "{icon}",
         // "format-alt": "{icon} {essid}",
-        "format-wifi": "{bandwidthDownBytes} \uf019",
+        "format-wifi": "{icon}",
         "format-ethernet": "{bandwidthDownBytes} \uf019",
         "format-linked": " {ifname}",
         "format-disconnected": "󰤫",
@@ -14,8 +14,13 @@
             "󰤥",
             "󰤨"
         ],
+        {{ if eq .chezmoi.hostname "locke" }}
+        "max-length": 1,
+        "min-length": 1,
+        {{ else }}
         "max-length": 8,
         "min-length": 8,
+        {{ end }}
         "tooltip": true,
         "tooltip-format": "",
         "tooltip-format-wifi": "Network: <b>{essid}</b>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>\n<span foreground='#eed49f'> {bandwidthDownBytes}</span> <span foreground='#b7bdf8'> {bandwidthUpBytes}</span>",
