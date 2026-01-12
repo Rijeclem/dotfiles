@@ -19,6 +19,7 @@ keymap:
       KEY_GRAVE-d: KEY_RIGHTALT-KEY_MINUS    # \
       KEY_GRAVE-z: KEY_RIGHTALT-7    # {
       KEY_GRAVE-x: KEY_RIGHTALT-0    # }
+      KEY_GRAVE-c: KEY_RIGHTALT-KEY_RIGHTBRACE # tilde
 
       KEY_GRAVE-1: Shift-2           # '
       KEY_GRAVE-2: KEY_GRAVE         # itself (paradox)
@@ -26,4 +27,3 @@ keymap:
 
       KEY_INSERT: KEY_DELETE # Unbroken Delete Key
 
-      F14: KEY_RIGHTALT-KEY_RIGHTBRACE # tilde
