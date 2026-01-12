@@ -24,14 +24,17 @@ windowrulev2 = bordercolor rgb(1F6F5B) rgb(2A9D8F) rgb(0B2E25) rgb(1F8A70) 45deg
 windowrulev2 = opaque, tag:background
 windowrulev2 = bordercolor rgb(C4B5FD) rgb(E0D7FF) rgb(2B1B4A) rgb(A78BFA) 45deg, class:obsidian
 
-layerrule = blur
+{{ if eq .chezmoi.hostname "locke" }}
+layerrule = blur 0.3
+{{ else }}
+layerrule = blur 
+{{ end }}
 
 general {
     gaps_in = 5
     gaps_out = 20
     border_size = 3
 
-    no_border_on_floating = false
 
     col.active_border = rgb(A594F9) rgb(CDC1FF) rgb(24273A) rgb(8aadf4) 45deg
     col.inactive_border = rgb(24273A) rgb(24273A) rgb(24273A) rgb(27273A) 45deg

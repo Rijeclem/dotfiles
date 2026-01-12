@@ -1,6 +1,9 @@
 {
-    // See https://github.com/Alexays/Waybar/wiki/Configuration
+    {{ if eq .chezmoi.hostname "locke" }}
+    "output": "LVDS-1",
+    {{ else }}
     "output": "DP-1",
+    {{ end }}
     "layer": "top",
     "position": "bottom",
     "height": 12,
@@ -29,7 +32,10 @@
         "~/.config/waybar/modules/network.jsonc",
         "~/.config/waybar/modules/weather.jsonc",
         "~/.config/waybar/modules/clockdate.jsonc",
-        "~/.config/waybar/modules/clock.jsonc"
+        "~/.config/waybar/modules/clock.jsonc",
+        {{ if eq .chezmoi.hostname "locke" }}
+            "~/.config/waybar/modules/battery.jsonc"
+        {{ end }}
     ],
     "modules-left": [
         "group/power-group",
@@ -46,6 +52,9 @@
         "disk",
         "cpu",
         "memory",
+        {{ if eq .chezmoi.hostname "locke" }}
+            "battery",
+        {{ end }}
         "group/pulseaudio-group",
         "network",
         "gamemode",

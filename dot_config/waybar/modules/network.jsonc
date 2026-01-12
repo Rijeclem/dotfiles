@@ -2,7 +2,7 @@
     "network": {
         "format": "{icon}",
         // "format-alt": "{icon} {essid}",
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{bandwidthDownBytes} \uf019",
         "format-ethernet": "{bandwidthDownBytes} \uf019",
         "format-linked": " {ifname}",
         "format-disconnected": "󰤫",

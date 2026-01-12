@@ -1,7 +1,11 @@
 {
     "disk": {
         "interval": 60,
+        {{ if eq .chezmoi.hostname "locke" }}
+        "format": "%{percentage_used} ",
+        {{ else }}
         "format": "%{percentage_used} ({free}) ",
+        {{ end }}
         "path": "/",
         "tooltip": true,
         "warning": 80,
