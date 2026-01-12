@@ -18,7 +18,7 @@
     "format": "",
     "tooltip": true,
     "tooltip-format": "Open power menu",
-    "on-click": "~/.config/rofi/powermenu/run.sh"
+    "on-click": " wlogout -C /home/rad/.config/wlogout/styles.css "
   },
   "custom/lock": {
     "format": "󰌾",
