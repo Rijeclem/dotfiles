@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ========= CONFIG =========
+# Change to "system" or "user"
+INSTALL_MODE="system"
+
+# System-wide (needs sudo)
+SYSTEM_FONT_DIR="/usr/share/fonts/custom"
+
+# User-only (no sudo)
+USER_FONT_DIR="$HOME/.local/share/fonts"
+
+# ==========================
+
+if [[ "$INSTALL_MODE" == "system" ]]; then
+    FONT_DIR="$SYSTEM_FONT_DIR"
+    SUDO="sudo"
+else
+    FONT_DIR="$USER_FONT_DIR"
+    SUDO=""
+fi
+
+echo "Installing fonts to: $FONT_DIR"
+$SUDO mkdir -p "$FONT_DIR"
+
+# Dependencies check
+for cmd in unzip unrar fc-cache; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Missing dependency: $cmd"
+        echo "Install it with:"
+        echo "  sudo pacman -S unzip unrar fontconfig"
+        exit 1
+    fi
+done
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+echo "Scanning directory: $(pwd)"
+
+# Extract archives
+find . -type f \( -iname "*.zip" -o -iname "*.rar" \) | while read -r archive; do
+    echo "Extracting: $archive"
+    case "$archive" in
+    *.zip) unzip -qq "$archive" -d "$TMP_DIR" ;;
+    *.rar) unrar x -inul "$archive" "$TMP_DIR" ;;
+    esac
+done
+
+# Find font files
+mapfile -t FONTS < <(
+    find . "$TMP_DIR" -type f \( -iname "*.ttf" -o -iname "*.otf" \)
+)
+
+if [[ ${#FONTS[@]} -eq 0 ]]; then
+    echo "No fonts found."
+    exit 0
+fi
+
+# Install fonts
+for font in "${FONTS[@]}"; do
+    echo "Installing: $(basename "$font")"
+    $SUDO cp -n "$font" "$FONT_DIR/"
+done
+
+# Refresh font cache
+echo "Refreshing font cache..."
+$SUDO fc-cache -fv
+
+echo "✅ Font installation complete."

@@ -31,4 +31,27 @@ return {
 			reindent_linewise = false, -- 👈 THIS is the key
 		},
 	},
+
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*",
+		lazy = true,
+		ft = "markdown",
+		dependencies = {
+			-- Required.
+			"nvim-lua/plenary.nvim",
+
+			-- see below for full list of optional dependencies 👇
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "BASENOTE",
+					path = "~/MEGA/BASENOTE",
+				},
+			},
+
+			-- see below for full list of options 👇
+		},
+	},
 }

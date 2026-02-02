@@ -86,6 +86,7 @@ RULES = [
 
     # PDF
     { NAME = "*.pdf", use = "editpdf" },
+    { mime = "application/pdf", use = "editpdf" },
 
     # VIDEO FILES → VLC
     { mime = "video/*", use = [ "play"] },

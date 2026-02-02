@@ -11,7 +11,6 @@ monitor=DP-2,1920x1080@60,0x0,1
 monitor=DP-1,1920x1080@144,0x1080,1
 {{ end }}
 
-
 ###################
 ### MY VARS ###
 ###################
@@ -100,7 +99,7 @@ input {
 #Shitty MouseScroll Fix
     scroll_method = on_button_down
     scroll_button = 274
-
+    accel_profile = adaptive
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 }
 
@@ -116,6 +115,7 @@ bind = $mainMod, less, exec, $terminal
 bind = $mainMod, R, exec, $menu
 bind = $mainMod SHIFT, R, exec, ls ~/bin | wofi --dmenu --prompt "Scripts" | xargs -r sh -c
 bind = $mainMod, E, exec, kitty -e yazi
+bind = $mainMod ALT, E, exec, thunar
 bind = $mainMod, N, exec, kitty -e nvim
 bind = $mainMod, S, exec, firefox
 bind = $mainMod SHIFT, S, exec, firefox --private-window
@@ -142,13 +142,12 @@ bind = $mainMod, idotless, exec, hyprctl dispatch tagwindow background
 bind = $mainMod Ctrl,Q, exec, wlogout -C /home/rad/.config/wlogout/styles.css
 bind = SUPER, M, exec, ~/.config/hypr/toggle-mirror.sh
 bind = $mainMod, Tab, workspace, previous
+bind = $mainMod, F11, exec, ~/bin/radhelp.sh
 
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
 #Disable Middle Mouse Click
 bindn = , mouse:274, exec, wl-copy -pc
-
-bind = $mainMod SHIFT, idotless, exec, hyprctl dispatch setprop active alphainactive 0.7
 
 # Windows - Movement
 bind = $mainMod SHIFT, H, movewindow, l
@@ -191,6 +190,21 @@ bind = $mainMod SHIFT, F2, movetoworkspace, 12
 bind = $mainMod SHIFT, F3, movetoworkspace, 13
 bind = $mainMod SHIFT, F4, movetoworkspace, 14
 
+bind = $mainMod CTRL, 1, movetoworkspacesilent, 1
+bind = $mainMod CTRL, 2, movetoworkspacesilent, 2
+bind = $mainMod CTRL, 3, movetoworkspacesilent, 3
+bind = $mainMod CTRL, 4, movetoworkspacesilent, 4
+bind = $mainMod CTRL, 5, movetoworkspacesilent, 5
+bind = $mainMod CTRL, 6, movetoworkspacesilent, 6
+bind = $mainMod CTRL, 7, movetoworkspacesilent, 7
+bind = $mainMod CTRL, 8, movetoworkspacesilent, 8
+bind = $mainMod CTRL, 9, movetoworkspacesilent, 9
+bind = $mainMod CTRL, 0, movetoworkspacesilent,  10
+bind = $mainMod CTRL, F1, movetoworkspacesilent, 11
+bind = $mainMod CTRL, F2, movetoworkspacesilent, 12
+bind = $mainMod CTRL, F3, movetoworkspacesilent, 13
+bind = $mainMod CTRL, F4, movetoworkspacesilent, 14
+
 # Windows - Resize
 bind = $mainMod, Z,submap,resize
 submap=resize
@@ -225,9 +239,9 @@ bindl = , XF86AudioPrev, exec, playerctl previous
 ### MISC ###
 ############
 
-# default fixes
-windowrulev2 = suppressevent maximize, class:.*
-windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
+# default fix - supress programs from maximizing
+windowrule = suppress_event maximize, match:class .*
+#NOTE: there was one more but i couldnt transfer it to windowrule successfully. Might need to later.
 
 #RAD - config
 source = ~/.config/hypr/windows.conf

@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BASE_DIR="$HOME/MEGA/BASENOTE/PROGRAMMING/Linux/radhelp"
+OBSIDIAN_HOTKEYS="$HOME/MEGA/BASENOTE/PROGRAMMING/Obsidian BASENOTE/Hotkey Bible.md"
+
+cat \
+    "$BASE_DIR/Hotkey Bible Prefix.md" \
+    "$OBSIDIAN_HOTKEYS" \
+    >"$BASE_DIR/Hotkeys.md"
+
+echo "✔ Hotkeys.md "
+
+# normalize
+awk '
+/^[[:space:]]*-/ && /=/ {
+    pos = index($0, "=")
+
+    left  = substr($0, 1, pos)
+    right = substr($0, pos + 1)
+
+    print left
+    print "  " right
+    next
+}
+{ print }
+' "$BASE_DIR/Hotkeys.md" >"$BASE_DIR/Hotkeys_norm.txt"
+
+echo "✔ Hotkeys_norm.txt "
+
+xgettext \
+    --from-code=UTF-8 \
+    --no-wrap \
+    --add-comments \
+    -o "$BASE_DIR/Kısayollar_norm.pot" \
+    "$BASE_DIR/Hotkeys_norm.txt"
+
+echo "✔ Kısayollar_norm.pot "
+
+msgmerge --update --backup=none \
+    $BASE_DIR/Kısayollar_norm.po \
+    $BASE_DIR/Kısayollar_norm.pot
+
+msgmerge --update --backup=none \
+    $BASE_DIR/Kullanım.po \
+    $BASE_DIR/Kullanım.pot
+
+msgmerge --update --backup=none \
+    $BASE_DIR/Giriş.po \
+    $BASE_DIR/Giriş.pot
+
+echo "✔ Updates using msgmerge"
+
+po2md -t $BASE_DIR/Introduction.md -i $BASE_DIR/Giriş.po -o $BASE_DIR/Giriş.md
+po2md -t $BASE_DIR/Usage.md -i $BASE_DIR/Kullanım.po -o $BASE_DIR/Kullanım.md
+msgcat --use-first "$BASE_DIR/Kısayollar_norm.po" |
+    awk '
+    /^msgid /  { id = substr($0, 8, length($0)-8) }
+    /^msgstr / {
+        str = substr($0, 9, length($0)-9)
+        gsub(/^"|"$/, "", str)
+        if (str != "") print str
+    }
+  ' >"$BASE_DIR/Kısayollar_norm.txt"
+
+echo "✔ po2md(3) "
+
+#unnormalize
+awk '
+prev != "" && /^[[:space:]]{2}/ {
+    print prev substr($0, 3)
+    prev = ""
+    next
+}
+
+/=$/ {
+    prev = $0 " "
+    next
+}
+
+{
+    if (prev != "") {
+        print prev
+        prev = ""
+    }
+    print
+}
+
+END {
+    if (prev != "") print prev
+}
+' $BASE_DIR/Kısayollar_norm.txt >$BASE_DIR/Kısayollar.md
+
+echo "✔ Kısayollar.md unnormalized "
+
+echo "✔✔✔ rebuilt!"
