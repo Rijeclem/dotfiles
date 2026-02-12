@@ -197,8 +197,6 @@ window#waybar.fullscreen #window {
 window#waybar.floating #window {
     background: @kırmızı;
     color: @on_tertiary;
-    border-radius: 8px;
-    padding: 4px 10px;
 }
 
 window#waybar.swallowing #window {
@@ -319,7 +317,11 @@ window#waybar.swallowing #window {
 
 #pulseaudio {
     color: @yesil;
+    {{ if eq .chezmoi.hostname "locke" }}
     padding: 0px 8px 0px 5px;
+    {{ else }}
+    padding: 0px 15px 0px 5px;
+    {{ end }}
 }
 
 /*****----- network, idle, weather, date,clock -----*****/
@@ -341,12 +343,18 @@ window#waybar.swallowing #window {
     {{ if eq .chezmoi.hostname "locke" }}
     font-size: 12px;
     {{ else }}
-    font-size: 15px;
+    font-size: 14px;
+    padding: 0px 0px 0px 0px;
     {{ end }}
 }
 
 #clock.date {
     color: @mor;
+
+    {{ if eq .chezmoi.hostname "locke" }}
+    {{ else }}
+    padding: 0px 5px 0px 5px;
+    {{ end }}
 }
 
 /*****----- battery -----*****/
