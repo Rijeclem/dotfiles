@@ -242,6 +242,12 @@ window#waybar.swallowing #window {
     color: @pembe;
     padding: 0px 11px 0px 5px;
 }
+#custom-disk-usage {
+    color: @pembe;
+    border-radius: 5px 0px 0px 5px;
+    margin: 1px 0px 1px 1px;
+    padding: 0px 10px 0px 5px;
+}
 
 #cpu,
 #memory {
@@ -353,7 +359,7 @@ window#waybar.swallowing #window {
 
     {{ if eq .chezmoi.hostname "locke" }}
     {{ else }}
-    padding: 0px 5px 0px 5px;
+    padding: 0px 8px 0px 5px;
     {{ end }}
 }
 

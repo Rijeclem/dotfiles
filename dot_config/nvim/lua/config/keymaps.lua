@@ -10,6 +10,8 @@ vim.keymap.set({ "n", "x" }, "C", '"_C', { desc = "Change to end of line without
 
 vim.keymap.set({ "n" }, "x", '"_x', { desc = "Delete char(s) without yanking in NORMAL" })
 
+vim.keymap.set("x", "p", '"_dP', { desc = "Paste without overwriting register" })
+
 -- Override LazyVim move-line mappings (NO reindent)
 vim.keymap.set("n", "<M-j>", "<Cmd>execute 'move .+' . v:count1<CR>", { desc = "Move Down (no indent)", silent = true })
 vim.keymap.set(

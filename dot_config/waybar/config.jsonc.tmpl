@@ -24,7 +24,11 @@
         "~/.config/waybar/modules/hyprland-window.jsonc",
         "~/.config/waybar/modules/hyprland-submap.jsonc",
         "~/.config/waybar/modules/tray.jsonc",
+    {{ if eq .chezmoi.hostname "locke" }}
         "~/.config/waybar/modules/disk.jsonc",
+    {{ else }}
+        "~/.config/waybar/modules/custom-disk.jsonc",
+    {{ end }}
         "~/.config/waybar/modules/gamemode.jsonc",
         "~/.config/waybar/modules/cpu.jsonc",
         "~/.config/waybar/modules/memory.jsonc",
@@ -49,7 +53,11 @@
     ],
     "modules-right": [
         "tray",
+    {{ if eq .chezmoi.hostname "locke" }}
         "disk",
+    {{ else }}
+        "custom/disk-usage",
+    {{ end }}
         "cpu",
         "memory",
         {{ if eq .chezmoi.hostname "locke" }}
