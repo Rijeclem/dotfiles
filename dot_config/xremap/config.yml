@@ -25,5 +25,7 @@ keymap:
       KEY_GRAVE-2: KEY_GRAVE         # itself (paradox)
       KEY_GRAVE-3: KEY_RIGHTALT-KEY_BACKSLASH # `
 
+      KEY_GRAVE-KEY_SPACE: KEY_LEFTSHIFT-KEY_EQUAL
+
       KEY_INSERT: KEY_DELETE # Unbroken Delete Key
 
