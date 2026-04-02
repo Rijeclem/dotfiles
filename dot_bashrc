@@ -1,0 +1,72 @@
+#
+# ~/.bashrc
+#
+
+export EDITOR="nvim"
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+
+export PATH="$HOME/.local/bin:$PATH"
+
+############
+## PROMPT ##
+############
+
+PS1='\[\033[38;2;166;227;161m\]\u\[\033[0m\]@\[\033[38;2;137;180;250m\]\h\[\033[0m\]:\[\033[38;2;249;226;175m\]\w\[\033[0m\]\[\033[38;2;205;214;244m\]\$ \[\033[0m\]'
+
+# RED PROMPT FOR ROOT USER
+# PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
+go env -w GOPATH=/home/rad/SOFTWARE/go
+export PATH=$PATH:$(go env GOPATH)/bin
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+############
+## ALIASES##
+############
+
+alias yt="~/.cargo/bin/youtube-tui"
+
+alias hf='history | fzf -e'
+
+alias sr='cat ~/.local/share/sr.txt'
+alias SR='cat ~/.local/share/sr.txt'
+
+HISTSIZE=9000
+HISTFILESIZE=$HISTSIZE
+HISTCONTROL=ignorespace:ignoredups
+
+_bash_history_sync() {
+    builtin history -a     #1
+    HISTFILESIZE=$HISTSIZE #2
+    builtin history -c     #3
+    builtin history -r     #4
+}
+
+history() { #5
+    _bash_history_sync
+    builtin history "$@"
+}
+
+timer() {
+    duration="$1"
+    repeats=4
+
+    countdown "$duration"
+    for i in $(seq "$repeats"); do
+        ffplay -nodisp -autoexit "$HOME/STUFF/ALARM.webm"
+    done
+}
+
+PROMPT_COMMAND=_bash_history_sync
+
+eval "$(zoxide init bash)"
+
+export WL_COPY_NO_PRIMARY=true
+export PATH="$HOME/.npm-global/bin:$PATH"
