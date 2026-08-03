@@ -5,19 +5,24 @@ STATE_FILE="$HOME/.cache/touchpad.state"
 
 mkdir -p "$HOME/.cache"
 
-# default to enabled if state file doesn't exist
-if [ ! -f "$STATE_FILE" ]; then
-    echo 1 >"$STATE_FILE"
-fi
+[[ -f "$STATE_FILE" ]] || echo 1 >"$STATE_FILE"
 
-STATE=$(cat "$STATE_FILE")
+STATE=$(<"$STATE_FILE")
 
-if [ "$STATE" = "1" ]; then
-    hyprctl keyword "device[$DEVICE]:enabled" false
-    echo 0 >"$STATE_FILE"
-    notify-send "Touchpad disabled"
+if [[ "$STATE" == "1" ]]; then
+    ENABLED=false
+    NEW_STATE=0
+    MESSAGE="Touchpad disabled"
 else
-    hyprctl keyword "device[$DEVICE]:enabled" true
-    echo 1 >"$STATE_FILE"
-    notify-send "Touchpad enabled"
+    ENABLED=true
+    NEW_STATE=1
+    MESSAGE="Touchpad enabled"
 fi
+
+hyprctl eval "hl.device({
+    name = \"$DEVICE\",
+    enabled = $ENABLED,
+})"
+
+echo "$NEW_STATE" >"$STATE_FILE"
+notify-send "$MESSAGE"
