@@ -31,12 +31,14 @@ export PATH="$HOME/bin:$PATH"
 ## ALIASES##
 ############
 
+spell() {
+    echo "$*" | aspell -a
+}
 alias yt="~/.cargo/bin/youtube-tui"
-
-alias hf='history | fzf -e'
-
-alias sr='cat ~/.local/share/sr.txt'
-alias SR='cat ~/.local/share/sr.txt'
+alias im="swayimg"
+alias hf='history | sort -nr | fzf --no-sort -e'
+alias sr='~/bin/sr.sh'
+alias SR='~/bin/sr.sh'
 
 HISTSIZE=9000
 HISTFILESIZE=$HISTSIZE

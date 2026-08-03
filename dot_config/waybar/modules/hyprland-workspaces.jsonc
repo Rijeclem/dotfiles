@@ -2,9 +2,10 @@
     "hyprland/workspaces": {
         "format": "{icon} {windows}",
         "show-special": true,
+        //FIX: wait for update to fix clicking on workspaces
         "on-click": "activate",
-        "on-scroll-up": "hyprctl dispatch workspace e-1",
-        "on-scroll-down": "hyprctl dispatch workspace e+1",
+        "on-scroll-up": "hyprctl dispatch \"hl.dsp.focus({workspace='e-1'})\"",
+        "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({workspace='e+1'})\"",
         "smooth-scrolling-threshold": 3.0,
         "format-window-separator": " ",
         "window-rewrite-default": "",
@@ -28,6 +29,9 @@
             "class<org.qbittorrent.qBittorrent>": "󰒍",
             "class<Dungeondraft>": "",
             "class<Wonderdraft>": "",
+            "class<org.qt-project.qtcreator>": "󰅩",
+            "class<io.qt.qtdesignstudio >": "󰅩",
+            "class<org.zealdocs.zeal>": "",
             /* Terminal / TUI */
             "title<youtube-tui>": "",
             "title<yazi>": "",
@@ -48,7 +52,7 @@
             "class<libreoffice-impress>": "󰈫",
             "class<Microsoft Word>": "󰈭",
             "class<Microsoft Excel>": "󰈜",
-            "class<Microsoft Powerpoint>": "󰈩",
+            "class<Microsoft Powerpoint>": "󰈩"
         }
     }
 }

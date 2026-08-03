@@ -1,28 +1,28 @@
 global:
-  'f':
-    4: loadpage feed
-  'l':
-    4: loadpage library
+  'A':
+    1: parrun mpv '${hover-url}'
   'B':
     1: togglemark ${hover-id}
-  ' ':
-    0: tpause ;; echo mpv Player pause toggled
-  'y':
-    0: cp ${url}
   Down:
     2: back ;; echo mpv Unskipped
-  Up:
-    2: next ;; echo mpv Skipped
+  'h':
+    4: loadpage watchhistory
+  ' ':
+    0: tpause ;; echo mpv Player pause toggled
+  'f':
+    4: loadpage feed
+  'y':
+    0: cp ${url}
+  'l':
+    4: loadpage library
+  'X':
+    1: mpv stop ;; resume ;; mpv sprop loop-file no ;; mpv loadfile '${hover-url}' ;; echo mpv Player started
   Left:
     2: mpv seek -5 ;; echo mpv Rewinded 5 seconds
   Right:
     2: mpv seek 5 ;; echo mpv Fast forwarded 5 seconds
-  'X':
-    1: mpv stop ;; resume ;; mpv sprop loop-file no ;; mpv loadfile '${hover-url}' ;; echo mpv Player started
-  'A':
-    1: parrun mpv '${hover-url}'
-  'h':
-    4: loadpage watchhistory
+  Up:
+    2: next ;; echo mpv Skipped
   's':
     0: parrun brave ${url}
 search: {}

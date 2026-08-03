@@ -1,7 +1,14 @@
 -- ~/.config/nvim/lua/config/lsp.lua
-local lspconfig = require("lspconfig")
+require("lspconfig").clangd.setup({
+	cmd = {
+		"clangd",
+		"--background-index",
+		"--query-driver=/usr/bin/g++,/usr/bin/gcc",
+	},
+})
 
--- C / C++
-lspconfig.clangd.setup({})
-
+-- QML
+require("lspconfig").qmlls.setup({
+	cmd = { "/usr/lib/qt6/bin/qmlls" },
+})
 -- You can also add JS / TS later

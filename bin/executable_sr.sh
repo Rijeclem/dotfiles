@@ -25,14 +25,15 @@ TEXT = """
 
 [purple]In case of: Stuck on Brain[/]
   1. Check SR on Basenote
+     • Read a random chapter
      • Read until you are [black on green] CERTAIN the idea is dead [/]
      • If it returns — read again
 
 [purple]In case of: Depression / Giving Up[/]
-  1. Review your [green]work, Basenote, SR, achievements[/]
+  1. Peruse your [green]work, Basenote, SR, achievements[/]
   2. Check TV playlist
   3. Lay down and [cyan]listen to classical music[/]
-  4. PMO has a [purple on red] 0% chance [/] of fixing this
+  4. Recognize that PMO has a [purple on red] 0% chance [/] of fixing this
 
 [purple]In case of: Stress[/]
   1. Lay down
@@ -40,7 +41,9 @@ TEXT = """
   3. [cyan]Ambient music[/]
 
 [magenta]Technique: Archon Fight / Psychic Defense[/]
-  • Recognize that [purple on red] you are being attacked [/]
+  • Recognize that [purple on red] you are being attacked [/] 
+  • Recognize that [purple on red] the ideas within your head are not necessarily yours [/], and might be put there despite your best interests
+    [yellow] They want you to feel like these are your inner hidden desires while that may not be the case [/]
   • Archons fear [yellow]Truth[/] — use it as a shield
   • Seeing and recognizing them wounds them
   • [yellow]YOU ARE BEING CONDITIONED TO LOSE[/]

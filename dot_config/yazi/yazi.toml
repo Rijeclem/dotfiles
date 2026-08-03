@@ -12,7 +12,7 @@ editpdf = [
     { run = 'okular "$@"', block = true, for = "unix" }
 ]
 image = [
-    { run = 'imv "$@"', block = false, for = "unix" }
+    { run = 'swayimg "$@"', block = false, for = "unix" }
 ]
 play = [
     { run = 'vlc "$@"', desc = "VLC", orphan = true }

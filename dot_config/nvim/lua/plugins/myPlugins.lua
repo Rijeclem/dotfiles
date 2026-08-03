@@ -1,5 +1,20 @@
 return {
+	{
+		"folke/flash.nvim",
+		keys = {
+			{ "s", false, mode = { "n", "x", "o" } },
+			{ "S", false, mode = { "n", "x", "o" } },
 
+			{
+				"<Space><Space>",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+		},
+	},
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
 
 	{
@@ -59,7 +74,37 @@ return {
 		"folke/noice.nvim",
 		opts = {
 			messages = {
-				enabled = false,
+				enabled = true,
+			},
+			notify = {
+				enabled = true,
+			},
+		},
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = {
+			options = {
+				theme = "auto",
+				globalstatus = true,
+			},
+
+			sections = {
+
+				lualine_y = {
+					"progress",
+					"location",
+				},
+
+				lualine_z = { "searchcount" },
 			},
 		},
 	},

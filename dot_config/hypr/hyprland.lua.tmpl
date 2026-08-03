@@ -1,0 +1,435 @@
+-- for lua to not warn "hl"
+---@diagnostic disable: undefined-global
+
+--###############
+--## MONITORS ###
+--###############
+
+{{ if eq .chezmoi.hostname "locke" }}
+# RAD - locke
+hl.monitor({
+        output = "LVDS-1",
+        mode = "1920x1080@60.00Hz",
+        position = "0x0",
+        scale = "1",
+        })
+{{ else }}
+# RAD - complex default layout
+hl.monitor({
+        output = "DP-1",
+        mode = "1920x1080@144.00Hz",
+        position = "0x0",
+        scale = "1",
+        })
+{{ end }}
+
+-- old hyprlang monitor 2
+-- monitor=DP-2,1920x1080@60,0x0,1
+
+
+--##################
+--## MY VARS ###
+--##################
+
+local terminal = "kitty"
+local menu = "wofi --show drun --style ~/.config/wofi/styles.css"
+
+--################
+--## AUTOSTART ###
+--################
+
+hl.on("hyprland.start", function()
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("xremap ~/.config/xremap/config.yml")
+	hl.exec_cmd("dunst")
+	hl.exec_cmd("discord")
+	hl.exec_cmd("megasync")
+    {{ if eq .chezmoi.hostname "locke" }}
+        hl.exec_cmd("nm-applet")
+        hl.exec_cmd("hyprpaper")
+    {{ else }}
+        hl.exec_cmd("~/bin/livenaturewall.sh")
+    {{ end }}
+end)
+
+--############################
+--## ENVIRONMENT VARIABLES ###
+--############################
+
+hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+
+--##################
+--## PERMISSIONS ###
+--##################
+
+hl.permission({ binary = "/usr/(bin|local/bin)/grim", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
+
+--####################
+--## WORKSPACES ###
+--####################
+
+-- DP-1: number workspaces
+hl.workspace_rule({
+	workspace = "1",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "2",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "3",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "4",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "5",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "6",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "7",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "8",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "9",
+	monitor = "DP-1",
+})
+
+hl.workspace_rule({
+	workspace = "10",
+	monitor = "DP-1",
+})
+
+-- DP-2: function key workspaces
+hl.workspace_rule({
+	workspace = "11",
+	monitor = "DP-2",
+})
+
+hl.workspace_rule({
+	workspace = "12",
+	monitor = "DP-2",
+})
+
+hl.workspace_rule({
+	workspace = "13",
+	monitor = "DP-2",
+})
+
+hl.workspace_rule({
+	workspace = "14",
+	monitor = "DP-2",
+})
+
+local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+
+--####################
+--## BINDS - OPEN  ###
+--####################
+hl.bind(mainMod .. " + less", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + SHIFT + less", hl.dsp.exec_cmd("kitty --class floating-terminal"))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+hl.bind(
+	mainMod .. " + SHIFT + R",
+	hl.dsp.exec_cmd(
+		"ls ~/bin | wofi --dmenu --style ~/.config/wofi/styles.css --prompt \"Scripts\" | xargs -r -I {} sh -c '~/bin/{}'"
+	)
+)
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("kitty -e yazi"))
+hl.bind(mainMod .. " + ALT + E", hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e nvim"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("firefox"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("firefox --private-window"))
+hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("brave --password-store=basic"))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("kitty -e ~/.cargo/bin/youtube-tui"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("kitty -e btop"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("kitty -e wiremix"))
+hl.bind(mainMod .. " + ALT + A", hl.dsp.exec_cmd("pavucontrol"))
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/bin/audio_changer.py"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/bin/toggle_touchpad.sh"))
+
+--####################
+--## BINDS - UTILITY #
+--####################
+hl.bind("Print", hl.dsp.exec_cmd("~/bin/swappyshot.sh"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+hl.bind(mainMod .. " + ALT + F", hl.dsp.window.fullscreen_state({ internal = 2, client = 0, action = "toggle" }))
+hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen_state({ internal = 1, client = 0, action = "toggle" }))
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + C", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + X", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + X", hl.dsp.layout("swapsplit"))
+hl.bind(mainMod .. " + ALT + X", hl.dsp.workspace.swap_monitors({ monitor1 = "DP-1", monitor2 = "DP-2" }))
+hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("wlogout -C /home/rad/.config/wlogout/styles.css"))
+hl.bind("SUPER + M", hl.dsp.exec_cmd("~/.config/hypr/toggle-mirror.sh"))
+hl.bind(mainMod .. " + Tab", hl.dsp.focus({ workspace = "previous" }))
+hl.bind(mainMod .. " + F11", hl.dsp.exec_cmd("~/bin/radhelp.sh"))
+hl.bind(mainMod .. " + P", hl.dsp.window.pin({ toggle }))
+
+hl.bind(mainMod .. " + SHIFT + G", hl.dsp.window.center())
+-- switch focus between floating and tiled windows
+local function toggle_float_focus()
+	local active = hl.get_active_window()
+
+	if not active then
+		return
+	end
+
+	if active.floating then
+		hl.dispatch(hl.dsp.focus({ window = "tiled" }))
+	else
+		hl.dispatch(hl.dsp.focus({ window = "floating" }))
+	end
+end
+hl.bind(mainMod .. " + Space", toggle_float_focus)
+
+-- toggle background window
+local function has_tag(win, tag)
+	for _, t in ipairs(win.tags) do
+		if t == tag then
+			return true
+		end
+	end
+	return false
+end
+hl.bind(mainMod .. " + O", function()
+	local win = hl.get_active_window()
+
+	if has_tag(win, "background") then
+		hl.dispatch(hl.dsp.window.clear_tags({
+			window = win,
+		}))
+	else
+		hl.dispatch(hl.dsp.window.tag({
+			window = win,
+			tag = "background",
+		}))
+	end
+end)
+
+-- Mouse Binds
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
+-- -- Disable Middle Mouse
+-- hl.bind("mouse:274", function()
+-- 	hl.exec_cmd("wl-copy -pc")
+-- end, { non_consuming = true })
+
+--####################
+--## BINDS - WINDOWS #
+--####################
+
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "l" }))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
+
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+
+hl.bind(mainMod .. " + 1", hl.dsp.focus({ workspace = 1 }))
+hl.bind(mainMod .. " + 2", hl.dsp.focus({ workspace = 2 }))
+hl.bind(mainMod .. " + 3", hl.dsp.focus({ workspace = 3 }))
+hl.bind(mainMod .. " + 4", hl.dsp.focus({ workspace = 4 }))
+hl.bind(mainMod .. " + 5", hl.dsp.focus({ workspace = 5 }))
+hl.bind(mainMod .. " + 6", hl.dsp.focus({ workspace = 6 }))
+hl.bind(mainMod .. " + 7", hl.dsp.focus({ workspace = 7 }))
+hl.bind(mainMod .. " + 8", hl.dsp.focus({ workspace = 8 }))
+hl.bind(mainMod .. " + 9", hl.dsp.focus({ workspace = 9 }))
+hl.bind(mainMod .. " + 0", hl.dsp.focus({ workspace = 10 }))
+hl.bind(mainMod .. " + F1", hl.dsp.focus({ workspace = 11 }))
+hl.bind(mainMod .. " + F2", hl.dsp.focus({ workspace = 12 }))
+hl.bind(mainMod .. " + F3", hl.dsp.focus({ workspace = 13 }))
+hl.bind(mainMod .. " + F4", hl.dsp.focus({ workspace = 14 }))
+
+hl.bind(mainMod .. " + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
+hl.bind(mainMod .. " + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
+hl.bind(mainMod .. " + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
+hl.bind(mainMod .. " + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
+hl.bind(mainMod .. " + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
+hl.bind(mainMod .. " + SHIFT + 6", hl.dsp.window.move({ workspace = 6 }))
+hl.bind(mainMod .. " + SHIFT + 7", hl.dsp.window.move({ workspace = 7 }))
+hl.bind(mainMod .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
+hl.bind(mainMod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
+hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
+hl.bind(mainMod .. " + SHIFT + F1", hl.dsp.window.move({ workspace = 11 }))
+hl.bind(mainMod .. " + SHIFT + F2", hl.dsp.window.move({ workspace = 12 }))
+hl.bind(mainMod .. " + SHIFT + F3", hl.dsp.window.move({ workspace = 13 }))
+hl.bind(mainMod .. " + SHIFT + F4", hl.dsp.window.move({ workspace = 14 }))
+
+hl.bind(mainMod .. " + CTRL + 1", hl.dsp.window.move({ workspace = 1, follow = false }))
+hl.bind(mainMod .. " + CTRL + 2", hl.dsp.window.move({ workspace = 2, follow = false }))
+hl.bind(mainMod .. " + CTRL + 3", hl.dsp.window.move({ workspace = 3, follow = false }))
+hl.bind(mainMod .. " + CTRL + 4", hl.dsp.window.move({ workspace = 4, follow = false }))
+hl.bind(mainMod .. " + CTRL + 5", hl.dsp.window.move({ workspace = 5, follow = false }))
+hl.bind(mainMod .. " + CTRL + 6", hl.dsp.window.move({ workspace = 6, follow = false }))
+hl.bind(mainMod .. " + CTRL + 7", hl.dsp.window.move({ workspace = 7, follow = false }))
+hl.bind(mainMod .. " + CTRL + 8", hl.dsp.window.move({ workspace = 8, follow = false }))
+hl.bind(mainMod .. " + CTRL + 9", hl.dsp.window.move({ workspace = 9, follow = false }))
+hl.bind(mainMod .. " + CTRL + 0", hl.dsp.window.move({ workspace = 10, follow = false }))
+hl.bind(mainMod .. " + CTRL + F1", hl.dsp.window.move({ workspace = 11, follow = false }))
+hl.bind(mainMod .. " + CTRL + F2", hl.dsp.window.move({ workspace = 12, follow = false }))
+hl.bind(mainMod .. " + CTRL + F3", hl.dsp.window.move({ workspace = 13, follow = false }))
+hl.bind(mainMod .. " + CTRL + F4", hl.dsp.window.move({ workspace = 14, follow = false }))
+
+--####################
+--## BINDS - RESIZE ##
+--####################
+hl.bind(mainMod .. " + Z", hl.dsp.submap("resize"))
+hl.define_submap("resize", function()
+	hl.bind("l", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+	hl.bind("h", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+	hl.bind("k", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+	hl.bind("j", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+	hl.bind("SHIFT + l", hl.dsp.window.resize({ x = 40, y = 0, relative = true }), { repeating = true })
+	hl.bind("SHIFT + h", hl.dsp.window.resize({ x = -40, y = 0, relative = true }), { repeating = true })
+	hl.bind("SHIFT + k", hl.dsp.window.resize({ x = 0, y = -40, relative = true }), { repeating = true })
+	hl.bind("SHIFT + j", hl.dsp.window.resize({ x = 0, y = 40, relative = true }), { repeating = true })
+	hl.bind("CTRL + l", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+	hl.bind("CTRL + h", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+	hl.bind("CTRL + k", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+	hl.bind("CTRL + j", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+	hl.bind(mainMod .. " + Z", hl.dsp.submap("reset"))
+	hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+
+--########################
+--## BINDS - MULTIMEDIA ##
+--########################
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioMicMute",
+	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+	{ locked = true, repeating = true }
+)
+
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- supress windows from maximizing
+hl.window_rule({
+	match = {
+		class = ".*",
+	},
+	suppress_event = "maximize",
+})
+
+require("windows")
+require("animations")
+
+--####################
+--## BINDS - KEYPAD ##
+--####################
+hl.bind("KP_Delete", hl.dsp.submap("keypad"))
+hl.define_submap("keypad", function()
+	hl.bind("SHIFT + KP_HOME", hl.dsp.exec_cmd("ydotool mousemove -- -40 -40 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_PRIOR", hl.dsp.exec_cmd("ydotool mousemove -- 40 -40 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_END", hl.dsp.exec_cmd("ydotool mousemove -- -40 40 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_NEXT", hl.dsp.exec_cmd("ydotool mousemove -- 40 40 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_LEFT", hl.dsp.exec_cmd("ydotool mousemove -- -40 0 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_RIGHT", hl.dsp.exec_cmd("ydotool mousemove -- 40 0 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_UP", hl.dsp.exec_cmd("ydotool mousemove -- 0 -40 && sleep 0.1"), { repeating = true })
+	hl.bind("SHIFT + KP_DOWN", hl.dsp.exec_cmd("ydotool mousemove -- 0 40 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_HOME", hl.dsp.exec_cmd("ydotool mousemove -- -20 -20 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_PRIOR", hl.dsp.exec_cmd("ydotool mousemove -- 20 -20 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_END", hl.dsp.exec_cmd("ydotool mousemove -- -20 20 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_NEXT", hl.dsp.exec_cmd("ydotool mousemove -- 20 20 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_LEFT", hl.dsp.exec_cmd("ydotool mousemove -- -20 0 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_RIGHT", hl.dsp.exec_cmd("ydotool mousemove -- 20 0 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_UP", hl.dsp.exec_cmd("ydotool mousemove -- 0 -20 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_DOWN", hl.dsp.exec_cmd("ydotool mousemove -- 0 20 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_HOME", hl.dsp.exec_cmd("ydotool mousemove -- -10 -10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_PRIOR", hl.dsp.exec_cmd("ydotool mousemove -- 10 -10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_END", hl.dsp.exec_cmd("ydotool mousemove -- -10 10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_NEXT", hl.dsp.exec_cmd("ydotool mousemove -- 10 10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_LEFT", hl.dsp.exec_cmd("ydotool mousemove -- -10 0 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_RIGHT", hl.dsp.exec_cmd("ydotool mousemove -- 10 0 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_UP", hl.dsp.exec_cmd("ydotool mousemove -- 0 -10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + KP_DOWN", hl.dsp.exec_cmd("ydotool mousemove -- 0 10 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_HOME", hl.dsp.exec_cmd("ydotool mousemove -- -5 -5 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_PRIOR", hl.dsp.exec_cmd("ydotool mousemove -- 5 -5 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_END", hl.dsp.exec_cmd("ydotool mousemove -- -5 5 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_NEXT", hl.dsp.exec_cmd("ydotool mousemove -- 5 5 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_LEFT", hl.dsp.exec_cmd("ydotool mousemove -- -5 0 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_RIGHT", hl.dsp.exec_cmd("ydotool mousemove -- 5 0 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_UP", hl.dsp.exec_cmd("ydotool mousemove -- 0 -5 && sleep 0.1"), { repeating = true })
+	hl.bind("CTRL + ALT + KP_DOWN", hl.dsp.exec_cmd("ydotool mousemove -- 0 5 && sleep 0.1"), { repeating = true })
+	hl.bind("KP_BEGIN", hl.dsp.exec_cmd("ydotool click C0"), { repeating = true })
+	hl.bind("KP_DIVIDE", hl.dsp.exec_cmd("ydotool click 0x42 0x82"), { repeating = true })
+	hl.bind("KP_MULTIPLY", hl.dsp.exec_cmd("ydotool click 0x41 0x81"), { repeating = true })
+	hl.bind("KP_SUBTRACT", hl.dsp.exec_cmd("echo wheel +3 | dotoolc"), { repeating = true })
+	hl.bind("KP_Add", hl.dsp.exec_cmd("echo wheel -3 | dotoolc"), { repeating = true })
+	hl.bind("KP_Delete", hl.dsp.submap("reset"))
+	hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+
+hl.config({
+	dwindle = {
+		preserve_split = true, -- You probably want this
+	},
+	misc = {
+		force_default_wallpaper = 0, -- Set to 0 or 1 to disable the anime mascot wallpapers
+		disable_hyprland_logo = 0, -- If true disables the random hyprland logo / anime girl background. :(
+	},
+	--############
+	--## INPUT ###
+	--############
+	-- https://wiki.hypr.land/Configuring/Variables/#input
+	input = {
+		kb_layout = "tr",
+		kb_variant = "",
+		kb_model = "",
+		kb_options = "",
+		kb_rules = "",
+		repeat_delay = 200,
+		repeat_rate = 50,
+		follow_mouse = 1,
+		--Shitty MouseScroll Fix
+		scroll_method = "on_button_down",
+		scroll_button = 274,
+		accel_profile = "adaptive",
+		sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+	},
+})

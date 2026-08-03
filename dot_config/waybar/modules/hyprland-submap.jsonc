@@ -1,8 +1,9 @@
 {
-  "hyprland/submap": {
-    "format": " {}",
-    "max-length": 12,
-    "on-click-right": "hyprctl dispatch submap reset",
-    "tooltip": true
-  }
+    "hyprland/submap": {
+        "format": " {}",
+        "max-length": 12,
+        "on-click": "hyprctl dispatch 'hl.dsp.submap(\"\")'",
+        "on-click-right": "hyprctl dispatch 'hl.dsp.submap(\"\")'",
+        "tooltip": true
+    }
 }

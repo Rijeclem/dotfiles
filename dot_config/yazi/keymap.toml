@@ -91,12 +91,8 @@ run  = 'search --via=fd --args="-H"'
 desc = "Switch to the flat view with a max depth of 3"
 
 [[mgr.prepend_keymap]]
-on = "u"
-run = "arrow -50%"
-
-[[mgr.prepend_keymap]]
-on = "ı"
-run = "arrow 50%"
+on = "i"
+run = "shell --confirm 'nohup swayimg -g . >/dev/null 2>&1 &'"
 
 [[mgr.prepend_keymap]]
 on = "<C-q>"
@@ -239,3 +235,21 @@ desc = "sudo delete"
 on = ["R", "m"]
 run = "plugin sudo -- chmod"
 desc = "sudo chmod"
+
+# -- More
+
+# no more tab renaming
+[[mgr.prepend_keymap]]
+on = ["t","t"] 
+run = "noop" 
+desc = "Disabled Key" 
+
+[[mgr.prepend_keymap]]
+on = ["t","r"] 
+run = "noop" 
+desc = "Disabled Key" 
+
+[[mgr.prepend_keymap]]
+on = ["t"] 
+run = "tab_create --current" 
+desc = "new tab" 
