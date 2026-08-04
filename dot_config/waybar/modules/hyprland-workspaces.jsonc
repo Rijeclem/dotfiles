@@ -15,7 +15,7 @@
             "title<.*YouTube*.>": "",
             "class<firefox>": "",
             "class<brave>": "󰖟",
-            "class<obsidian>": "󰠮",
+            "class<md.Obsidian>": "󰠮",
             "class<spotify>": "",
             "class<vlc>": "󰕼",
             "class<mpv>": "󰃽",
