@@ -1,5 +1,20 @@
 return {
 	{
+		"akinsho/bufferline.nvim",
+		keys = {
+			{
+				"<M-S-h>",
+				"<cmd>BufferLineMovePrev<cr>",
+				desc = "Move buffer right",
+			},
+			{
+				"<M-S-l>",
+				"<cmd>BufferLineMoveNext<cr>",
+				desc = "Move buffer left",
+			},
+		},
+	},
+	{
 		"folke/flash.nvim",
 		keys = {
 			{ "s", false, mode = { "n", "x", "o" } },
@@ -82,12 +97,18 @@ return {
 		},
 	},
 	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({})
-		end,
+		"nvim-mini/mini.surround",
+		version = false,
+		opts = {
+			mappings = {
+				add = "<leader>sa",
+				delete = "<leader>sd",
+				replace = "<leader>sr",
+				find = "<leader>sf",
+				find_left = "<leader>sF",
+				highlight = "<leader>sh",
+			},
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",

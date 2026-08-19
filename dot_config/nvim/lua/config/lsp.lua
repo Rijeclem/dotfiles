@@ -1,11 +1,11 @@
 -- ~/.config/nvim/lua/config/lsp.lua
-require("lspconfig").clangd.setup({
-	cmd = {
-		"clangd",
-		"--background-index",
-		"--query-driver=/usr/bin/g++,/usr/bin/gcc",
-	},
-})
+-- require("lspconfig").clangd.setup({
+-- 	cmd = {
+-- 		"clangd",
+-- 		"--background-index",
+-- 		"--query-driver=/usr/bin/g++,/usr/bin/gcc",
+-- 	},
+-- })
 
 -- QML
 require("lspconfig").qmlls.setup({

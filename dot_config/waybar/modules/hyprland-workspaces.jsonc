@@ -15,7 +15,9 @@
             "title<.*YouTube*.>": "",
             "class<firefox>": "",
             "class<brave>": "󰖟",
+            "class<md.obsidian.Obsidian>": "󰠮",
             "class<md.Obsidian>": "󰠮",
+            "class<md.obsidian>": "󰠮",
             "class<spotify>": "",
             "class<vlc>": "󰕼",
             "class<mpv>": "󰃽",
@@ -35,7 +37,7 @@
             /* Terminal / TUI */
             "title<youtube-tui>": "",
             "title<yazi>": "",
-            "title<nvim>": "",
+            "title<nvim.*>": "",
             "class<imv>": "",
             "class<kitty>": "󰆍",
             "title<.*yazi.*>": "",

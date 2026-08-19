@@ -3,6 +3,7 @@
 #
 source <(carapace _carapace bash)
 export EDITOR="nvim"
+export TERMINAL="kitty --config ~/.config/kitty/kitty.conf"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -67,7 +68,7 @@ timer() {
 
     countdown "$duration"
     for i in $(seq "$repeats"); do
-        ffplay -nodisp -autoexit "$HOME/STUFF/ALARM.webm"
+        ffplay -nodisp -autoexit "$HOME/STUFF/ALARM".*
     done
 }
 

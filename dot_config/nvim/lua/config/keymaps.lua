@@ -61,3 +61,6 @@ vim.keymap.set("n", "<F2>", function()
 	local word = vim.fn.expand("<cword>")
 	vim.fn.jobstart({ "zeal", word }, { detach = true })
 end, { desc = "Open Zeal docs" })
+
+--delete default s for surround
+vim.keymap.set("n", "s", "<Nop>")
