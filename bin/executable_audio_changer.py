@@ -1,60 +1,124 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python3
+
 import subprocess
+import re
 
-# function to parse output of command "wpctl status" and return a dictionary of sinks with their id and name.
+
 def parse_wpctl_status():
-    # Execute the wpctl status command and store the output in a variable.
-    output = str(subprocess.check_output("wpctl status", shell=True, encoding='utf-8'))
+    result = subprocess.run(
+        ["wpctl", "status"],
+        capture_output=True,
+        text=True,
+        check=True
+    )
 
-    # remove the ascii tree characters and return a list of lines
-    lines = output.replace("├", "").replace("─", "").replace("│", "").replace("└", "").splitlines()
+    lines = result.stdout.splitlines()
 
-    # get the index of the Sinks line as a starting point
-    sinks_index = None
-    for index, line in enumerate(lines):
-        if "Sinks:" in line:
-            sinks_index = index
-            break
-
-    # start by getting the lines after "Sinks:" and before the next blank line and store them in a list
     sinks = []
-    for line in lines[sinks_index +1:]:
-        if not line.strip():
+    in_sinks = False
+
+    for line in lines:
+        if re.search(r"Sinks:\s*$", line):
+            in_sinks = True
+            continue
+
+        if not in_sinks:
+            continue
+
+        if re.search(r"^(.*)(Sources|Filters|Streams):\s*$", line):
             break
-        sinks.append(line.strip())
 
-    # remove the "[vol:" from the end of the sink name
-    for index, sink in enumerate(sinks):
-        sinks[index] = sink.split("[vol:")[0].strip()
-    
-    # strip the * from the default sink and instead append "- Default" to the end. Looks neater in the wofi list this way.
-    for index, sink in enumerate(sinks):
-        if sink.startswith("*"):
-            sinks[index] = sink.strip().replace("*", "").strip() + " - Default"
+        clean = (
+            line
+            .replace("├", "")
+            .replace("─", "")
+            .replace("│", "")
+            .replace("└", "")
+            .strip()
+        )
 
-    # make the dictionary in this format {'sink_id': <int>, 'sink_name': <str>}
-    sinks_dict = [{"sink_id": int(sink.split(".")[0]), "sink_name": sink.split(".")[1].strip()} for sink in sinks]
+        match = re.match(r"^\*?\s*(\d+)\.\s+(.+?)(?:\s+\[vol:.*)?$", clean)
 
-    return sinks_dict
+        if not match:
+            continue
 
-# get the list of sinks ready to put into wofi - highlight the current default sink
-output = ''
+        sink_id = int(match.group(1))
+        sink_name = match.group(2).strip()
+        is_default = clean.startswith("*")
+
+        sinks.append({
+            "sink_id": sink_id,
+            "sink_name": sink_name,
+            "default": is_default
+        })
+
+    return sinks
+
+
 sinks = parse_wpctl_status()
-for items in sinks:
-    if items['sink_name'].endswith(" - Default"):
-        output += f"<b>-> {items['sink_name']}</b>\n"
-    else:
-        output += f"{items['sink_name']}\n"
 
-# Call wofi and show the list. take the selected sink name and set it as the default sink
-wofi_command = f"echo '{output}' | wofi --show=dmenu --hide-scroll --allow-markup --define=hide_search=true --location=top_right --width=600 --height=200 --xoffset=-60"
-wofi_process = subprocess.run(wofi_command, shell=True, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+if not sinks:
+    print("No sinks found.")
+    exit(1)
+
+
+# Build Wofi input
+wofi_lines = []
+
+for sink in sinks:
+    if sink["default"]:
+        wofi_lines.append(f"{sink['sink_name']} - Default")
+    else:
+        wofi_lines.append(sink["sink_name"])
+
+wofi_input = "\n".join(wofi_lines)
+
+
+# Run Wofi directly.
+# Wofi automatically loads ~/.config/wofi/config and ~/.config/wofi/style.css
+wofi_process = subprocess.run(
+    [
+        "wofi",
+        "--show=dmenu",
+        "--hide-scroll",
+        "--allow-markup",
+        "--location=top_right",
+        "--width=600",
+        "--height=200",
+        "--xoffset=-60",
+        "--style",
+        "/home/rad/.config/wofi/styles.css"
+    ],
+    input=wofi_input,
+    text=True,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+)
+
 
 if wofi_process.returncode != 0:
-    print("User cancelled the operation.")
     exit(0)
 
-selected_sink_name = wofi_process.stdout.strip()
-sinks = parse_wpctl_status()
-selected_sink = next(sink for sink in sinks if sink['sink_name'] == selected_sink_name)
-subprocess.run(f"wpctl set-default {selected_sink['sink_id']}", shell=True)
+
+selected = wofi_process.stdout.strip()
+
+# Remove our visual formatting
+selected = re.sub(r"^->\s*", "", selected)
+selected = re.sub(r"\s+- Default$", "", selected)
+
+
+# Find the selected sink
+selected_sink = next(
+    (sink for sink in sinks if sink["sink_name"] == selected),
+    None
+)
+
+if selected_sink is None:
+    print(f"Could not find sink: {selected!r}")
+    exit(1)
+
+
+subprocess.run(
+    ["wpctl", "set-default", str(selected_sink["sink_id"])],
+    check=True
+)

@@ -23,6 +23,16 @@ hl.window_rule({
 	float = true,
 })
 
+-- FIREFOX PICTURE-IN-PICTURE
+hl.window_rule({
+	match = {
+		title = "^(Picture\\-in\\-Picture)$",
+	},
+	float = true,
+	tag = "background",
+	size = "240 144",
+})
+
 -- MEGASYNC FIX
 hl.window_rule({
 	match = {

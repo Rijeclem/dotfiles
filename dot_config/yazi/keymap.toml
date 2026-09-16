@@ -253,3 +253,9 @@ desc = "Disabled Key"
 on = ["t"] 
 run = "tab_create --current" 
 desc = "new tab" 
+
+# Open With
+[[mgr.prepend_keymap]]
+on = ["o"]
+run = "shell --orphan '~/bin/open-with.sh \"$0\"'"
+desc = "Open with..."

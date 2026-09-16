@@ -78,3 +78,7 @@ eval "$(zoxide init bash)"
 
 export WL_COPY_NO_PRIMARY=true
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/rad/.local/bin:$PATH"

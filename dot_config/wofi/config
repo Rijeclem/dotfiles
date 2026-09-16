@@ -37,3 +37,5 @@ filter_rate=100
 ## Keys
 key_expand=Tab
 key_exit=Escape
+key_up=Ctrl-k
+key_down=Ctrl-j
